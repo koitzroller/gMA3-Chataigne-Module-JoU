@@ -121,18 +121,6 @@ function syncExecutors(list) {
   }
 }
 
-/*function turnExecutorEncoder(page, executor, offset, multiplicator) {
-  executor = executor + offset;
-  if(page == 0)
-  {
-    local.send("/Encoder" + executor + "/", multiplicator);
-  }
-  else
-  {
-    local.send("/Page" + page + "/Encoder" + executor + "/", multiplicator);
-  }
-}*/
-
 function turnExecutorEncoder(page, executor, offset, multiplicator) {
   var cleanMultiplicator = Math.round(multiplicator * 100) / 100;
   executor = executor + offset;
@@ -177,11 +165,6 @@ function moveSpeedMasterBpmFader(speedMaster, value) {
   var range = local.parameters.faderRange.get();
   local.send("/14.13.3." + speedMaster, "FaderMaster", 1, Math.pow(value, 0.5243838)/0.17118);
 }
-
-/*function turnEncoder(encoder, multiplicator, value) {
-  script.log("Attribute " + encoder + " at + " + value*multiplicator);
-  local.send("/cmd", "Attribute " + encoder + " at + " + value*multiplicator);
-}*/
 
 function turnEncoder(encoder, multiplicator, value) {
   var cleanvalue = Math.round((value * multiplicator) * 100) / 100;

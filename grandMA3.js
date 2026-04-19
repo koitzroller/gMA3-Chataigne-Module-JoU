@@ -121,7 +121,7 @@ function syncExecutors(list) {
   }
 }
 
-function turnExecutorEncoder(page, executor, offset, multiplicator) {
+/*function turnExecutorEncoder(page, executor, offset, multiplicator) {
   executor = executor + offset;
   if(page == 0)
   {
@@ -130,6 +130,19 @@ function turnExecutorEncoder(page, executor, offset, multiplicator) {
   else
   {
     local.send("/Page" + page + "/Encoder" + executor + "/", multiplicator);
+  }
+}*/
+
+function turnExecutorEncoder(page, executor, offset, multiplicator) {
+  var cleanMultiplicator = Math.round(multiplicator * 100) / 100;
+  executor = executor + offset;
+  if(page == 0)
+  {
+    local.send("/Encoder" + executor + "/", cleanMultiplicator);
+  }
+  else
+  {
+    local.send("/Page" + page + "/Encoder" + executor + "/", cleanMultiplicator);
   }
 }
 
@@ -165,9 +178,15 @@ function moveSpeedMasterBpmFader(speedMaster, value) {
   local.send("/14.13.3." + speedMaster, "FaderMaster", 1, Math.pow(value, 0.5243838)/0.17118);
 }
 
-function turnEncoder(encoder, multiplicator, value) {
+/*function turnEncoder(encoder, multiplicator, value) {
   script.log("Attribute " + encoder + " at + " + value*multiplicator);
   local.send("/cmd", "Attribute " + encoder + " at + " + value*multiplicator);
+}*/
+
+function turnEncoder(encoder, multiplicator, value) {
+  var cleanvalue = Math.round((value * multiplicator) * 100) / 100;
+  script.log("Attribute " + encoder + " at + " + cleanvalue);
+  local.send("/cmd", "Attribute " + encoder + " at + " + cleanvalue);
 }
 
 function setProgrammerColor(color, layer) {
